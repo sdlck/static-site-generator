@@ -10,6 +10,8 @@ def split_nodes_delimiter(old_nodes: list[TextNode], delimiter: str, text_type: 
             if len(split_text) % 2 == 0:
                 raise Exception("missing closing delimiter")
             for i, text in enumerate(split_text):
+                if text == "":
+                    continue
                 if i % 2 == 0:
                     new_nodes.append(TextNode(text, TextType.TEXT))
                 else:
