@@ -17,7 +17,9 @@ def split_nodes_image(old_nodes: list[TextNode]) -> list[TextNode]:
                 new_nodes.append(TextNode(image[0], TextType.IMAGE, image[1]))
             if remaining_text:
                 new_nodes.append(TextNode(remaining_text, TextType.TEXT))
-        elif node.text:
+        elif node.text_type == TextType.TEXT and not node.text:
+            continue
+        else:
             new_nodes.append(node)
     return new_nodes
 
@@ -36,6 +38,8 @@ def split_nodes_link(old_nodes: list[TextNode]) -> list[TextNode]:
                 new_nodes.append(TextNode(link[0], TextType.LINK, link[1]))
             if remaining_text:
                 new_nodes.append(TextNode(remaining_text, TextType.TEXT))
-        elif node.text:
+        elif node.text_type == TextType.TEXT and not node.text:
+            continue
+        else:
             new_nodes.append(node)
     return new_nodes
