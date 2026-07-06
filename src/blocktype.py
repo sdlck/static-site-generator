@@ -35,7 +35,7 @@ def block_to_block_type(markdown: str) -> BlockType:
     if len(markdown) > 2 and markdown[:3] == "1. ":
         ordered_list = True
         for i, line in enumerate(markdown.split("\n")):
-            if line[:3] != f"{i + 1}. ":
+            if not line.startswith(f"{i + 1}. "):
                 ordered_list = False
                 break
         if ordered_list:
