@@ -14,7 +14,7 @@ def block_to_block_type(markdown: str) -> BlockType:
         raise Exception("markdown is required")
     if re.findall(r"^#{1,6} .", markdown):
         return BlockType.HEADING
-    if re.findall(r"^```[\s\S]+```$", markdown):
+    if re.findall(r"^```\n[\s\S]+```$", markdown):
         return BlockType.CODE
     if markdown[0] == ">":
         quote = True
