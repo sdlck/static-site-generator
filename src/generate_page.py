@@ -24,7 +24,7 @@ def generate_page(from_path: str, template_path: str, dest_path: str) -> None:
     with open(dest_path, "w") as f:
         f.write(template)
 
-def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir_path: str) -> None:
+def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir_path: str, basepath: str) -> None:
     for object in os.listdir(dir_path_content):
         path = os.path.join(dir_path_content, object)
 
@@ -40,6 +40,8 @@ def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir
             title = extract_title(md)
 
             new_template = template.replace("{{ Title }}", title).replace("{{ Content }}", html)
+            new_template = new_template.replace('href="/', f'href="{basepath}')
+            new_template = new_template.replace('src="/', f'src="{basepath}')
 
             if dest_dir_path:
                 os.makedirs(dest_dir_path, exist_ok=True)
@@ -49,4 +51,4 @@ def generate_pages_recursive(dir_path_content: str, template_path: str, dest_dir
                 f.write(new_template)
 
         elif os.path.isdir(path):
-            generate_pages_recursive(path, template_path, os.path.join(dest_dir_path, object))
+            generate_pages_recursive(path, template_path, os.path.join(dest_dir_path, object), basepath)
