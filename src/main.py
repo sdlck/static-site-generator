@@ -1,8 +1,7 @@
-from textnode import TextType, TextNode
+from copy_dir import copy_dir
 
 def main():
-    text_node = TextNode("test text", TextType.BOLD, "test url")
-    print(text_node)
+    copy_dir("static", "public")
 
 if __name__ == "__main__":
     main()
